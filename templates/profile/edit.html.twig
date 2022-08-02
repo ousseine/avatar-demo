@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le profile{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="mt-4">{{ controller_name }} ✅</h1>
+
+        <div class="content mt-5">
+            {{ form_start(form) }}
+            {{ form_row(form.lastname, {'label': 'Nom'}) }}
+            {{ form_row(form.firstname, {'label': 'Prénom'}) }}
+
+            <button type="submit" class="btn btn-success">Modifier</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

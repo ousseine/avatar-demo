@@ -1,38 +1,57 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Avatar{% endblock %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Avatar{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22>
             <text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block styles %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    {% block styles %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-        {% block js %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        <div id="app">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                <div class="container">
-                    <a class="navbar-brand" href="{{ path('app_home') }}">Avatar</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
-                            </li>
-                        </ul>
-                    </div>
+    {% block js %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<div id="app">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path('app_home') }}">Avatar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex">
+                    {% if app.user %}
+                        <a href="{{ path('app_profile') }}" class="nav-link link-avatar me-3">
+                            {% if app.user.avatar %}
+                                <img src="{{ asset('avatar/' ~ app.user.avatar) }}" alt="{{ app.user.avatar }}">
+                            {% else %}
+                                <i class="fa-solid fa-user"></i>
+                            {% endif %}
+                        </a>
+                        <a href="{{ path('app_logout') }}" class="nav-link"><i
+                                    class="fa-solid fa-right-from-bracket"></i></a>
+                    {% else %}
+                        <a href="{{ path('app_register') }}" class="nav-link me-3"><i
+                                    class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="{{ path('app_login') }}" class="nav-link"><i class="fa-solid fa-right-to-bracket"></i></a>
+                    {% endif %}
                 </div>
-            </nav>
-            {% block body %}{% endblock %}
+            </div>
         </div>
-    </body>
+    </nav>
+    {% block body %}{% endblock %}
+</div>
+</body>
 </html>
